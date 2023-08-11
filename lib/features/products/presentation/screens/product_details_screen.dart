@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart' as badges;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,6 @@ import 'package:task/core/utils/styles.dart';
 import 'package:task/features/products/domain/entities/product_entity.dart';
 import 'package:task/features/products/presentation/managers/products_cubit/products_cubit.dart';
 import 'package:task/features/products/presentation/widgets/custom_button.dart';
-import 'package:badges/badges.dart' as badges;
 
 
 class ProductDetailsScreen extends StatefulWidget {

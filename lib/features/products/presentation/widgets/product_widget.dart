@@ -1,13 +1,11 @@
-import 'package:go_router/go_router.dart';
-import 'package:task/core/navigation/app_routes.dart';
-import 'package:task/core/navigation/routes.dart';
-import 'package:task/core/utils/app_strings.dart';
-import 'package:task/features/products/domain/entities/product_entity.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:task/core/navigation/routes.dart';
 import 'package:task/core/utils/palette.dart';
 import 'package:task/core/utils/styles.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:task/features/products/domain/entities/product_entity.dart';
 
 class ProductWidget extends StatelessWidget {
   const ProductWidget({super.key, required this.product});

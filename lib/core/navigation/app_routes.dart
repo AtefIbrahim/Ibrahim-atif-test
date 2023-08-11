@@ -1,5 +1,5 @@
-import 'package:task/core/navigation/routes.dart';
 import 'package:go_router/go_router.dart';
+import 'package:task/core/navigation/routes.dart';
 import 'package:task/features/products/domain/entities/product_entity.dart';
 import 'package:task/features/products/presentation/screens/cart_screen.dart';
 import 'package:task/features/products/presentation/screens/product_details_screen.dart';

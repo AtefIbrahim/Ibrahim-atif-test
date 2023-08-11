@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,7 +10,6 @@ import 'package:task/core/utils/styles.dart';
 import 'package:task/core/widgets/loader.dart';
 import 'package:task/features/products/presentation/managers/products_cubit/products_cubit.dart';
 import 'package:task/features/products/presentation/widgets/product_widget.dart';
-import 'package:badges/badges.dart' as badges;
 
 
 class ProductsScreen extends StatefulWidget {
