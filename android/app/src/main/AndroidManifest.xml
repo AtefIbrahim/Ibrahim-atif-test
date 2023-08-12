@@ -3,6 +3,13 @@
         android:label="task"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
+        <!-- Update this value to your google maps api key. -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyA8G3rdL3AGJQWHr7F6NoLlZVCkPzy5rwM"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

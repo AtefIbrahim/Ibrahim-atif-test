@@ -13,7 +13,8 @@ import 'package:task/core/utils/styles.dart';
 import 'package:task/features/products/domain/entities/product_entity.dart';
 import 'package:task/features/products/presentation/managers/products_cubit/products_cubit.dart';
 import 'package:task/features/products/presentation/widgets/custom_button.dart';
-
+import 'package:task/features/products/presentation/widgets/product_google_map_widget.dart';
+import 'package:task/features/products/presentation/widgets/row_text_info.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   const ProductDetailsScreen({super.key, required this.product});
@@ -49,24 +50,35 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             )),
         backgroundColor: Palette.kWhite,
         leading: InkWell(
-            onTap: (){
+            onTap: () {
               context.pop();
             },
-            child: Icon(Icons.arrow_back_ios_new_sharp, color: Palette.kBlack, size: 28.w,)),
+            child: Icon(
+              Icons.arrow_back_ios_new_sharp,
+              color: Palette.kBlack,
+              size: 28.w,
+            )),
         actions: [
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Center(
               child: BlocBuilder<ProductsCubit, ProductsState>(
                 bloc: productsCubit, // provide the local bloc instance
-                builder: (context, state){
+                builder: (context, state) {
                   return InkWell(
-                    onTap: (){
-                      context.push(Routers.cartScreen,);
+                    onTap: () {
+                      context.push(
+                        Routers.cartScreen,
+                      );
                     },
                     child: badges.Badge(
-                      badgeContent: Text(productsCubit.getLengthOfCart().toString()),
-                      child: Icon(Icons.shopping_cart, color: Palette.kBlack, size: 28.w,),
+                      badgeContent:
+                          Text(productsCubit.getLengthOfCart().toString()),
+                      child: Icon(
+                        Icons.shopping_cart,
+                        color: Palette.kBlack,
+                        size: 28.w,
+                      ),
                     ),
                   );
                 },
@@ -136,6 +148,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  //title
                   Text(widget.product.title!,
                       textAlign: TextAlign.start,
                       style: Styles.titleStyle20.copyWith(
@@ -145,6 +158,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   SizedBox(
                     height: 16.h,
                   ),
+                  //price
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -176,53 +190,78 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   SizedBox(
                     height: 16.h,
                   ),
-                  Text(
-                      "${AppStrings.description}: ${widget.product.description!}",
-                      textAlign: TextAlign.start,
-                      style: Styles.titleStyle20.copyWith(
-                        color: Palette.kBlack,
-                        fontWeight: FontWeight.w700,
-                      )),
+                  //description
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("${AppStrings.description}: ",
+                          textAlign: TextAlign.start,
+                          style: Styles.titleStyle20.copyWith(
+                            color: Palette.kBlack,
+                            fontWeight: FontWeight.w700,
+                          )),
+                      SizedBox(
+                        width: 15.w,
+                      ),
+                      Text(widget.product.description!,
+                          textAlign: TextAlign.start,
+                          style: Styles.titleStyle20.copyWith(
+                            color: Palette.kBlack.withOpacity(0.5),
+                            fontWeight: FontWeight.w700,
+                          )),
+                    ],
+                  ),
                   SizedBox(
                     height: 16.h,
                   ),
-                  Text("${AppStrings.category}: ${widget.product.category!}",
-                      textAlign: TextAlign.start,
-                      style: Styles.titleStyle20.copyWith(
-                        color: Palette.kBlack,
-                        fontWeight: FontWeight.w700,
-                      )),
+                  //category
+                  RowTextInfo(title: "${AppStrings.category}: ", value: widget.product.category ?? "",),
                   SizedBox(
                     height: 16.h,
                   ),
-                  Text("${AppStrings.brand}: ${widget.product.brand!}",
-                      textAlign: TextAlign.start,
-                      style: Styles.titleStyle20.copyWith(
-                        color: Palette.kBlack,
-                        fontWeight: FontWeight.w700,
-                      )),
+                  //brand
+                  RowTextInfo(title: "${AppStrings.brand}: ", value: widget.product.brand ?? "",),
+                  SizedBox(
+                    height: 16.h,
+                  ),
+                  //store
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text("${AppStrings.rate}: ",
+                          textAlign: TextAlign.start,
+                          style: Styles.titleStyle20.copyWith(
+                            color: Palette.kBlack,
+                            fontWeight: FontWeight.w700,
+                          )),
+                      SizedBox(
+                        width: 15.w,
+                      ),
+                      RatingBar.builder(
+                        initialRating: widget.product.rating!.toDouble(),
+                        minRating: 1,
+                        direction: Axis.horizontal,
+                        allowHalfRating: true,
+                        itemCount: 5,
+                        ignoreGestures: true,
+                        itemPadding: EdgeInsets.symmetric(horizontal: 4.w),
+                        itemBuilder: (context, _) => const Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                        ),
+                        onRatingUpdate: (rating) {},
+                      ),
+                    ],
+                  ),
                   SizedBox(
                     height: 32.h,
                   ),
-                  Center(
-                    child: RatingBar.builder(
-                      initialRating: widget.product.rating!.toDouble(),
-                      minRating: 1,
-                      direction: Axis.horizontal,
-                      allowHalfRating: true,
-                      itemCount: 5,
-                      ignoreGestures: true,
-                      itemPadding: EdgeInsets.symmetric(horizontal: 4.w),
-                      itemBuilder: (context, _) => const Icon(
-                        Icons.star,
-                        color: Colors.amber,
-                      ),
-                      onRatingUpdate: (rating) {},
-                    ),
-                  ),
+                  //map
+                  const ProductGoogleMap(),
                   SizedBox(
-                    height: 64.h,
+                    height: 32.h,
                   ),
+                  //Add To Cart
                   CustomElevatedButton(
                     onPressed: () {
                       productsCubit.addItemToCart(widget.product);
@@ -238,7 +277,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     textColor: Palette.kWhite,
                   ),
                   SizedBox(
-                    height: 16.h,
+                    height: 32.h,
                   ),
                 ],
               ),
