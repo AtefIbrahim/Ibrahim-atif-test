@@ -25,6 +25,9 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Future.delayed(const Duration(seconds: 2), (){
       initDeepLinks(context);
+      context.push(
+        Routers.productsScreen,
+      );
     });
   }
 
@@ -74,10 +77,6 @@ class _SplashScreenState extends State<SplashScreen> {
       // Extract relevant information and navigate accordingly
       // For example, you can extract query parameters or path segments
     }
-    else
-      {
-        context.push(Routers.productsScreen,);
-      }
   }
 
 }

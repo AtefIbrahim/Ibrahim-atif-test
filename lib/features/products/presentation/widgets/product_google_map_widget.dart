@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -40,6 +42,9 @@ class _ProductGoogleMapState extends State<ProductGoogleMap> {
           height: 250.h,
           child: GoogleMap(
             mapType: MapType.normal,
+            gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
+              Factory<OneSequenceGestureRecognizer>(
+                    () =>  EagerGestureRecognizer(),),},
             initialCameraPosition: const CameraPosition(
               target: LatLng(24.782199, 46.686502),
               zoom: 11,
