@@ -74,8 +74,17 @@ class ProductsCubit extends Cubit<ProductsState> {
   }
 
   addItemToCart(ProductEntity newItem) {
-    if (cartList.contains(newItem)) {
-      int index = cartList.indexOf(newItem);
+    int? index;
+    for(int i =0; i<cartList.length; i++)
+      {
+        if(newItem.id == cartList[i].id)
+          {
+            index = i;
+            break;
+          }
+      }
+
+    if (index != null) {
       cartList[index].count++;
     } else {
       newItem.count++;
