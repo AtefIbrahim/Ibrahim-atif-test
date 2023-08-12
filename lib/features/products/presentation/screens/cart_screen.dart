@@ -49,27 +49,27 @@ class _CartScreenState extends State<CartScreen> {
               color: Palette.kBlack,
               size: 28.w,
             )),
-        actions: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Center(
-              child: BlocBuilder<ProductsCubit, ProductsState>(
-                bloc: productsCubit, // provide the local bloc instance
-                builder: (context, state) {
-                  return badges.Badge(
-                    badgeContent:
-                        Text(productsCubit.getLengthOfCart().toString()),
-                    child: Icon(
-                      Icons.shopping_cart,
-                      color: Palette.kBlack,
-                      size: 28.w,
-                    ),
-                  );
-                },
-              ),
-            ),
-          )
-        ],
+        // actions: [
+        //   Padding(
+        //     padding: EdgeInsets.symmetric(horizontal: 16.w),
+        //     child: Center(
+        //       child: BlocBuilder<ProductsCubit, ProductsState>(
+        //         bloc: productsCubit, // provide the local bloc instance
+        //         builder: (context, state) {
+        //           return badges.Badge(
+        //             badgeContent:
+        //                 Text(productsCubit.getLengthOfCart().toString()),
+        //             child: Icon(
+        //               Icons.shopping_cart,
+        //               color: Palette.kBlack,
+        //               size: 28.w,
+        //             ),
+        //           );
+        //         },
+        //       ),
+        //     ),
+        //   )
+        // ],
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.zero,
@@ -78,45 +78,43 @@ class _CartScreenState extends State<CartScreen> {
         child: BlocBuilder<ProductsCubit, ProductsState>(
           bloc: productsCubit, // provide the local bloc instance
           builder: (context, state) {
-            return Expanded(
-              child: Column(
-                children: [
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding:
-                        EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.w),
-                    itemCount: productsCubit.cartList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return CartItem(
-                        product: productsCubit.cartList[index],
-                        productsCubit: productsCubit,
-                        index: index,
-                      );
-                    },
-                  ),
-                  SizedBox(
-                    height: 75.h,
-                  ),
-                  productsCubit.cartList.isNotEmpty
-                      ? Padding(
-                          padding: EdgeInsets.only(bottom: 32.h),
-                          child: CustomElevatedButton(
-                            onPressed: () {},
-                            backgroundColor: Palette.kBlack,
-                            borderColor: Palette.kBlack,
-                            width: 340.w,
-                            height: 55.h,
-                            text: "${productsCubit.getCartCost()}",
-                            textStyle: Styles.titleStyle18.copyWith(
-                              color: Palette.kWhite,
-                            ),
-                            textColor: Palette.kWhite,
+            return Column(
+              children: [
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  padding:
+                      EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.w),
+                  itemCount: productsCubit.cartList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return CartItem(
+                      product: productsCubit.cartList[index],
+                      productsCubit: productsCubit,
+                      index: index,
+                    );
+                  },
+                ),
+                SizedBox(
+                  height: 75.h,
+                ),
+                productsCubit.cartList.isNotEmpty
+                    ? Padding(
+                        padding: EdgeInsets.only(bottom: 32.h),
+                        child: CustomElevatedButton(
+                          onPressed: () {},
+                          backgroundColor: Palette.kBlack,
+                          borderColor: Palette.kBlack,
+                          width: 340.w,
+                          height: 55.h,
+                          text: "${productsCubit.getCartCost()}",
+                          textStyle: Styles.titleStyle18.copyWith(
+                            color: Palette.kWhite,
                           ),
-                        )
-                      : const SizedBox.shrink(),
-                ],
-              ),
+                          textColor: Palette.kWhite,
+                        ),
+                      )
+                    : const SizedBox.shrink(),
+              ],
             );
           },
         ),

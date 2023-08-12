@@ -1,13 +1,18 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task/features/products/data/models/products_request_model.dart';
 import 'package:task/features/products/domain/entities/product_entity.dart';
+import 'package:task/features/products/domain/usecases/get_product_by_id_use_case.dart';
 import 'package:task/features/products/domain/usecases/get_products_use_case.dart';
 
 part 'products_state.dart';
 
 class ProductsCubit extends Cubit<ProductsState> {
-  ProductsCubit(this.getProductsUseCase) : super(ProductsInitial());
+  ProductsCubit({
+    required this.getProductsUseCase,
+    required this.getProductByIdUseCase,
+  }) : super(ProductsInitial());
   final GetProductsUseCase getProductsUseCase;
+  final GetProductByIdUseCase getProductByIdUseCase;
 
   List<ProductEntity> cartList = [];
 
@@ -55,6 +60,19 @@ class ProductsCubit extends Cubit<ProductsState> {
     }
   }
 
+  Future<ProductEntity?> getProductById(int productId) async {
+    ProductEntity? product;
+    var result = await getProductByIdUseCase.call(productId);
+    result.fold((failure) {
+      print("fail");
+    }, (ProductEntity retrievedProduct) {
+      print("done");
+      product = retrievedProduct;
+    });
+
+    return product;
+  }
+
   addItemToCart(ProductEntity newItem) {
     if (cartList.contains(newItem)) {
       int index = cartList.indexOf(newItem);
@@ -64,20 +82,24 @@ class ProductsCubit extends Cubit<ProductsState> {
       cartList.add(newItem);
 
       final ProductsSuccess currState = state as ProductsSuccess;
-      emit(ProductsSuccess(
-        productsList: currState.productsList,
-        hasReachedMax: currState.hasReachedMax,
-      ),);
+      emit(
+        ProductsSuccess(
+          productsList: currState.productsList,
+          hasReachedMax: currState.hasReachedMax,
+        ),
+      );
     }
   }
 
   increaseCountOfCartItem(int index) {
     cartList[index].count++;
     final ProductsSuccess currState = state as ProductsSuccess;
-    emit(ProductsSuccess(
-      productsList: currState.productsList,
-      hasReachedMax: currState.hasReachedMax,
-    ),);
+    emit(
+      ProductsSuccess(
+        productsList: currState.productsList,
+        hasReachedMax: currState.hasReachedMax,
+      ),
+    );
   }
 
   decreaseCountOfCartItem(int index) {
@@ -87,10 +109,12 @@ class ProductsCubit extends Cubit<ProductsState> {
     }
 
     final ProductsSuccess currState = state as ProductsSuccess;
-    emit(ProductsSuccess(
-      productsList: currState.productsList,
-      hasReachedMax: currState.hasReachedMax,
-    ),);
+    emit(
+      ProductsSuccess(
+        productsList: currState.productsList,
+        hasReachedMax: currState.hasReachedMax,
+      ),
+    );
   }
 
   double getCartCost() {

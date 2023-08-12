@@ -22,4 +22,17 @@ class ProductsRepositoryImplementation extends ProductsRepository {
           ServerFailure(message: failure.errorMessageModel.statusMessage));
     }
   }
+
+  @override
+  Future<Either<Failure, ProductEntity>> getProductById(
+      {required int productId}) async {
+    final result =
+        await productsDataSource.getProductById(productId: productId);
+    try {
+      return Right(result);
+    } on ServerException catch (failure) {
+      return Left(
+          ServerFailure(message: failure.errorMessageModel.statusMessage));
+    }
+  }
 }

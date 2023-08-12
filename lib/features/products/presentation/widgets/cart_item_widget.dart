@@ -65,47 +65,45 @@ class CartItem extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 SizedBox(
-                  height: 8.h,
+                  height: 12.h,
                 ),
                 Text(product.title!,
                     textAlign: TextAlign.start,
-                    style: Styles.titleStyle20.copyWith(
+                    style: Styles.titleStyle18.copyWith(
                       color: Palette.kBlack,
                       fontWeight: FontWeight.w700,
                     )),
                 SizedBox(
                   height: 8.h,
                 ),
-                FittedBox(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Text(
-                          "\$${(product.price! - (product.price! * product.discountPercentage!) / 100).toStringAsFixed(2)}",
-                          style: Styles.titleStyle18.copyWith(
-                              color: Palette.kBlack,
-                              fontWeight: FontWeight.w500)),
-                      SizedBox(
-                        width: 15.w,
-                      ),
-                      Text("\$${product.price!}",
-                          style: Styles.titleStyle18.copyWith(
-                              color: Palette.greyBorder,
-                              decoration: TextDecoration.lineThrough,
-                              decorationColor: Palette.greyBorder,
-                              decorationStyle: TextDecorationStyle.solid,
-                              decorationThickness: 3.w,
-                              fontWeight: FontWeight.w500)),
-                      SizedBox(
-                        width: 15.w,
-                      ),
-                      Text("${product.discountPercentage!}% off",
-                          style: Styles.titleStyle18.copyWith(
-                              color: Palette.greyBorder,
-                              fontWeight: FontWeight.w500)),
-                    ],
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Text(
+                        "\$${(product.price! - (product.price! * product.discountPercentage!) / 100).toStringAsFixed(2)}",
+                        style: Styles.titleStyle14.copyWith(
+                            color: Palette.kBlack,
+                            fontWeight: FontWeight.w500)),
+                    SizedBox(
+                      width: 15.w,
+                    ),
+                    Text("\$${product.price!}",
+                        style: Styles.titleStyle14.copyWith(
+                            color: Palette.greyBorder,
+                            decoration: TextDecoration.lineThrough,
+                            decorationColor: Palette.greyBorder,
+                            decorationStyle: TextDecorationStyle.solid,
+                            decorationThickness: 3.w,
+                            fontWeight: FontWeight.w500)),
+                    SizedBox(
+                      width: 15.w,
+                    ),
+                    Text("${product.discountPercentage!}% off",
+                        style: Styles.titleStyle14.copyWith(
+                            color: Palette.greyBorder,
+                            fontWeight: FontWeight.w500)),
+                  ],
                 ),
                 SizedBox(
                   height: 16.h,
