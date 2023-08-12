@@ -11,16 +11,50 @@ import 'package:task/core/utils/simple_bloc_observer.dart';
 import 'package:task/features/products/domain/repository/products_repository.dart';
 import 'package:task/features/products/domain/usecases/get_products_use_case.dart';
 import 'package:task/features/products/presentation/managers/products_cubit/products_cubit.dart';
+import 'package:task/features/products/presentation/screens/product_details_screen.dart';
+import 'package:uni_links/uni_links.dart' as uni_links;
 
-void main() {
+void main() async{
   HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
 
   ServicesLocator().init();
   Bloc.observer = SimpleBlocObserver();
+
   runApp(MyApp());
 
   configLoading();
+}
+
+Future<void> initDeepLinks(BuildContext context) async {
+  // Check if the app was opened by a deep link
+  final initialLink = await uni_links.getInitialLink();
+  handleDeepLink(initialLink, context);
+
+  // Listen for subsequent deep links while the app is running
+  uni_links.linkStream.listen((uri) {
+    handleDeepLink(uri, context);
+  });
+}
+
+void handleDeepLink(String? uri, BuildContext context) {
+  print("uri $uri");
+  if (uri != null) {
+    print(uri);
+    List<String> uriParameters = uri.split("/");
+    String productId = uriParameters[uriParameters.length-1];
+    print("productId $productId");
+
+    ProductsCubit productsCubit = BlocProvider.of<ProductsCubit>(context);
+
+    productsCubit.getProducts();
+
+    Navigator.push(context,
+      MaterialPageRoute(builder: (context) => ProductDetailsScreen()),);
+    // Process the deep link URI
+    // Extract relevant information and navigate accordingly
+    // For example, you can extract query parameters or path segments
+  }
 }
 
 void configLoading() {
@@ -53,6 +87,8 @@ class _MyAppState extends State<MyApp> {
       ),
     );
     super.initState();
+
+    initDeepLinks(context);
   }
 
   @override
