@@ -62,6 +62,12 @@ class ProductsCubit extends Cubit<ProductsState> {
     } else {
       newItem.count++;
       cartList.add(newItem);
+
+      final ProductsSuccess currState = state as ProductsSuccess;
+      emit(ProductsSuccess(
+        productsList: currState.productsList,
+        hasReachedMax: currState.hasReachedMax,
+      ),);
     }
   }
 

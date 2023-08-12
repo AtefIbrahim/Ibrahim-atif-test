@@ -11,7 +11,6 @@ import 'package:task/core/widgets/loader.dart';
 import 'package:task/features/products/presentation/managers/products_cubit/products_cubit.dart';
 import 'package:task/features/products/presentation/widgets/product_widget.dart';
 
-
 class ProductsScreen extends StatefulWidget {
   const ProductsScreen({super.key});
 
@@ -69,14 +68,21 @@ class _ProductsScreenState extends State<ProductsScreen> {
             child: Center(
               child: BlocBuilder<ProductsCubit, ProductsState>(
                 bloc: productsCubit, // provide the local bloc instance
-                builder: (context, state){
+                builder: (context, state) {
                   return InkWell(
-                    onTap: (){
-                      context.push(Routers.cartScreen,);
+                    onTap: () {
+                      context.push(
+                        Routers.cartScreen,
+                      );
                     },
                     child: badges.Badge(
-                      badgeContent: Text(productsCubit.getLengthOfCart().toString()),
-                      child: Icon(Icons.shopping_cart, color: Palette.kBlack, size: 28.w,),
+                      badgeContent:
+                          Text(productsCubit.getLengthOfCart().toString()),
+                      child: Icon(
+                        Icons.shopping_cart,
+                        color: Palette.kBlack,
+                        size: 28.w,
+                      ),
                     ),
                   );
                 },
